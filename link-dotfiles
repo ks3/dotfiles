@@ -1,0 +1,32 @@
+#!/bin/bash
+
+for item in $(find . -mindepth 1 -maxdepth 1 -print); do
+    item=${item#./}
+
+    # files to skip
+    [[ $item == $(basename $0) ]] && continue
+    [[ $item == README.md ]] && continue
+    [[ $item =~ ^\. ]] && continue
+
+    src="$PWD/$item"
+    src="${src/$HOME\/}"
+    dst="$HOME/.$item"
+
+    if [[ -e $dst ]]; then
+        STAT_FORMAT_FLAG="-c"
+        if [[ $OSTYPE =~ ^darwin ]]; then
+            STAT_FORMAT_FLAG="-f"
+        fi
+            
+        if [[ $(stat $STAT_FORMAT_FLAG "%i" -L "$dst") == $(stat $STAT_FORMAT_FLAG "%i" -L "$item") ]]; then
+            # destination exists and has same inode as source
+            continue
+        fi
+
+        mv -f "$dst" "$dst.bak"
+    fi
+
+
+    echo "$dst -> $src"
+    ln -s "$src" "$dst"
+done

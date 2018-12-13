@@ -1,0 +1,7 @@
+[include]
+    path = .local/gitconfig
+[push]
+    default = simple
+[branch]
+    autosetupmerge  = always
+    autosetuprebase = always

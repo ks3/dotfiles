@@ -1,0 +1,4 @@
+shell           -$SHELL
+hardstatus      alwayslastline "%-w%{wK}%n %t%{-}%+w %=%H"
+msgwait         3
+startup_message off

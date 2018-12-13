@@ -1,0 +1,10 @@
+# global ignores
+.DS_Store
+
+# bitbar specific
+bitbar/enabled
+
+# vim specific
+vim/.netrwhist
+vim/autoload
+vim/vim-plug
