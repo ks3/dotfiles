@@ -3,13 +3,13 @@ if [[ $TERM != dumb && ! $STY && ! $TMUX ]]; then
     multiplexer="tmux"
     multiplexer_args=""
 
-    if [[ $SSH_CLIENT ]]; then
+    if [[ -n $SSH_CLIENT ]]; then
         # but use screen in SSH sessions
         multiplexer="screen"
         multiplexer_args="-xRR"
     fi
 
-    if hash multiplexer &>/dev/null; then
+    if hash $multiplexer &>/dev/null; then
         exec $multiplexer $multiplexer_args
     elif [[ -x /opt/macports/bin/$multiplexer ]]; then
         exec /opt/macports/bin/$multiplexer $multiplexer_args
