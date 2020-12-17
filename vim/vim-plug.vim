@@ -17,6 +17,7 @@ endif
 call plug#begin('~/.vim/vim-plug')
 
 " color schemes
+Plug 'arcticicestudio/nord-vim'
 Plug 'romainl/apprentice'
 
 " airline and themes

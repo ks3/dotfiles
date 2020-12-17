@@ -1,5 +1,3 @@
-[[ -f ~/.bashrc ]] && source ~/.bashrc
-
 if [[ $TERM != dumb && ! $STY && ! $TMUX ]]; then
     # use tmux by default
     multiplexer="tmux"
@@ -11,5 +9,11 @@ if [[ $TERM != dumb && ! $STY && ! $TMUX ]]; then
         multiplexer_args="-xRR"
     fi
 
-    hash $multiplexer &>/dev/null && exec $multiplexer $multiplexer_args
+    if hash multiplexer &>/dev/null; then
+        exec $multiplexer $multiplexer_args
+    elif [[ -x /opt/macports/bin/$multiplexer ]]; then
+        exec /opt/macports/bin/$multiplexer $multiplexer_args
+    fi
 fi
+
+[[ -f ~/.bashrc ]] && source ~/.bashrc
