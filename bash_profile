@@ -6,7 +6,7 @@ if [[ $TERM != dumb && ! $STY && ! $TMUX ]]; then
     if [[ -n $SSH_CLIENT ]]; then
         # but use screen in SSH sessions
         multiplexer="screen"
-        multiplexer_args="-xRR"
+        multiplexer_args="-qxRR"
     fi
 
     if hash $multiplexer &>/dev/null; then
