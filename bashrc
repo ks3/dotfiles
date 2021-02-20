@@ -7,7 +7,6 @@ fi
 [[ -f ~/.bash_aliases ]]   && source ~/.bash_aliases
 [[ -f ~/.bash_functions ]] && source ~/.bash_functions
 
-pathmunge ~/Scripts
 
 if [[ -d ~/.profile.d ]]; then
     for s in ~/.profile.d/*.sh; do
@@ -15,8 +14,10 @@ if [[ -d ~/.profile.d ]]; then
     done
 fi
 
-# add this after profile.d as it may already be added by python virtualenv
 pathmunge ~/.local/bin
+pathmunge ~/Scripts
+
+set -o vi
 
 unset PROMPT_COMMAND
 

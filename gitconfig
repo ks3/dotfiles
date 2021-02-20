@@ -5,3 +5,5 @@
 [branch]
     autosetupmerge  = always
     autosetuprebase = always
+[user]
+	name = Kevin Sandy
