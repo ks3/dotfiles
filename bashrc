@@ -28,4 +28,4 @@ export LESS="RX"
 export PS1="\[\e[00;34m\][\u@${hostname%%.*} \w]\$\[\e[00m\] "
 export QUOTING_STYLE="literal"
 
-umask 0027
+umask 0022

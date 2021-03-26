@@ -8,6 +8,7 @@ filetype indent plugin on
 set backspace=indent,start
 set expandtab
 set laststatus=2
+set noshowmode
 set number
 set path=**,./**
 set ruler
