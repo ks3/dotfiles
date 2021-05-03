@@ -1,2 +1,8 @@
 # SC1090: Can't follow non-constant source. Use a directive to specify location.
 disable=SC1090
+# SC2155: Declare and assign separately to avoid masking return values.
+disable=SC2155
+# SC2181: Check exit code directly with e.g. 'if mycmd;', not indirectly with $?.
+disable=SC2181
+# SC2120: function references arguments, but none are ever passed
+disable=SC2120
