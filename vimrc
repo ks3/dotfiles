@@ -14,7 +14,7 @@ set path=**,./**
 set ruler
 set shiftwidth=4
 set softtabstop=4
-set tabstop=4
+set tabstop=8
 set wildmode=list:longest,full
 
 syntax on
