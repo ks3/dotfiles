@@ -16,15 +16,15 @@ function aws-default-profile() {
 
 function aws-profile() {
     if [[ -z $1 ]]; then
-        if [[ -n $AWS_DEFAULT_PROFILE ]]; then
-            echo "Current profile is $AWS_DEFAULT_PROFILE"
+        if [[ -n $AWS_PROFILE ]]; then
+            echo "Current profile is $AWS_PROFILE"
         else
             echo "No profile is currently set"
         fi
     elif [[ $1 == unset ]]; then
-        unset AWS_DEFAULT_PROFILE
+        unset AWS_PROFILE
     else
-        export AWS_DEFAULT_PROFILE="$1"
+        export AWS_PROFILE="$1"
     fi
 }
 
