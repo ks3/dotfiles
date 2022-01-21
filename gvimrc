@@ -7,7 +7,7 @@ set guioptions-=R
 
 if has("gui_macvim")
     set guifont=Source\ Code\ Pro:h12
-    set transparency=5
+    set transparency=2
 else
     set guifont=Source\ Code\ Pro\ 10
 endif
