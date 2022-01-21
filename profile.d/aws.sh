@@ -28,11 +28,25 @@ function aws-profile() {
     fi
 }
 
+function aws-profiles() {
+    grep -Ev '^\s*#' ~/.aws/config | \
+        grep -Eo 'profile [^]]+' | \
+        awk '{print $2}' | \
+        sort
+}
+
 function aws-login() {
     aws sso login --profile "$1"
+}
+
+function ssm-login() {
+    local user='ec2-user'
+    [[ $1 == ingest.lungmap.net ]] && user='ubuntu'
+    ssm-session -u "$user" "$@"
 }
 
 if [[ -e ~/.aws/default-profile ]]; then
     aws-profile "$(cat ~/.aws/default-profile)"
 fi
 
+alias ssm-sessions="ssm-session -l"
