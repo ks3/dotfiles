@@ -1,5 +1,6 @@
 # global ignores
 .DS_Store
+*.swp
 
 # bitbar specific
 bitbar/enabled

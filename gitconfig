@@ -7,3 +7,5 @@
     autosetuprebase = always
 [user]
 	name = Kevin Sandy
+[status]
+            short = true
