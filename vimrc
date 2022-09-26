@@ -34,13 +34,14 @@ augroup templates
 augroup end
 
 """ settings for ale
+if filereadable('/opt/macports/bin/tidy')
+    let g:ale_html_tidy_executable = '/opt/macports/bin/tidy'
+endif
 let g:ale_puppet_puppetlint_options='--no-autoloader_layout-check --no-2sp_soft_tabs-check --no-arrow_alignment-check'
-"let g:ale_linters = { 'yaml': ['cfn-lint'] }
-let g:ale_linter_aliases = { 'yaml': ['cloudformation', 'yaml'] }
 
 """ settings for vim-airline
 let g:airline#extensions#tabline#enabled=1
-let g:airline_powerline_fonts=1
+let g:airline_powerline_fonts=0
 let g:airline_skip_empty_sections=1
 
 " settings for netrw
