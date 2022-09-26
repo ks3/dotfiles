@@ -1,4 +1,8 @@
 alias grep="/usr/bin/grep --color=auto"
+alias reset-workspace="aws-profile unset; cd ~; clear"
+
+alias apu="aws-profile unset"
+alias rw="reset-workspace"
 
 if [[ $OSTYPE =~ ^darwin ]]; then
     alias ls="/bin/ls -G"

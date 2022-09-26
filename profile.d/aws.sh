@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export AWS_PAGER="less -FRX"
+
 function aws-default-profile() {
     if [[ -z $1 ]]; then
         if [[ -e ~/.aws/default-profile ]]; then
@@ -49,4 +51,5 @@ if [[ -e ~/.aws/default-profile ]]; then
     aws-profile "$(cat ~/.aws/default-profile)"
 fi
 
+alias s3-sync="aws s3 sync --exclude '.git*'"
 alias ssm-sessions="ssm-session -l"
