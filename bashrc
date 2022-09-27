@@ -9,15 +9,14 @@ fi
 [[ -f ~/.bash_aliases ]]   && source ~/.bash_aliases
 [[ -f ~/.bash_functions ]] && source ~/.bash_functions
 
+pathmunge ~/.local/bin
+pathmunge ~/Scripts
 
 if [[ -d ~/.profile.d ]]; then
     for s in ~/.profile.d/*.sh; do
         [[ -r $s ]] && source "$s"
     done
 fi
-
-pathmunge ~/.local/bin
-pathmunge ~/Scripts
 
 set -o vi
 
