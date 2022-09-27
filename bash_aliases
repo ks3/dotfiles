@@ -5,7 +5,7 @@ alias apu="aws-profile unset"
 alias rw="reset-workspace"
 
 if [[ $OSTYPE =~ ^darwin ]]; then
-    alias ls="/bin/ls -G"
+    alias ls="/bin/ls -F"
     alias flush-dns="sudo killall -HUP mDNSResponder && dscacheutil -flushcache"
 else
     alias ls="/bin/ls --color=auto"
