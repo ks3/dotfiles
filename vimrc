@@ -26,11 +26,11 @@ augroup end
 
 augroup templates
   autocmd!
-  autocmd BufNewFile *.html r ~/Documents/Resources/Templates/html | 1d
-  autocmd BufNewFile *.php 0r ~/Documents/Resources/Templates/php | $d
-  autocmd BufNewFile *.pl 0r ~/Documents/Resources/Templates/pl | $d
-  autocmd BufNewFile *.py 0r ~/Documents/Resources/Templates/py | $d
-  autocmd BufNewFile *.sh 0r ~/Documents/Resources/Templates/sh | $d
+  autocmd BufNewFile *.html r ~/Documents/Templates/html | 1d
+  autocmd BufNewFile *.php 0r ~/Documents/Templates/php | $d
+  autocmd BufNewFile *.pl 0r ~/Documents/Templates/pl | $d
+  autocmd BufNewFile *.py 0r ~/Documents/Templates/py | $d
+  autocmd BufNewFile *.sh 0r ~/Documents/Templates/sh | $d
 augroup end
 
 """ settings for ale
