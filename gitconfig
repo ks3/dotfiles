@@ -6,6 +6,6 @@
     autosetupmerge  = always
     autosetuprebase = always
 [user]
-	name = Kevin Sandy
+    name = Kevin Sandy
 [status]
-            short = true
+    short = true
