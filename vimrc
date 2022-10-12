@@ -5,8 +5,10 @@ source ~/.vim/vim-plug.vim
 filetype indent plugin on
 
 set backspace=indent,start
+set directory=~/tmp//,.
 set expandtab
 set laststatus=2
+set modeline
 set noshowmode
 set number
 set path=**,./**
@@ -15,6 +17,7 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=8
 set wildmode=list:longest,full
+
 
 syntax on
 colorscheme nord
