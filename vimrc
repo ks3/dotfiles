@@ -5,10 +5,17 @@ source ~/.vim/vim-plug.vim
 filetype indent plugin on
 
 set backspace=indent,start
+set breakindent
+set breakindentopt+=sbr
+set showbreak=>\ 
+set cpoptions+=n
 set directory=~/tmp//,.
 set expandtab
+"set formatoptions+=l
 set laststatus=2
+set linebreak
 set modeline
+set nofixendofline
 set noshowmode
 set number
 set path=**,./**

@@ -31,4 +31,7 @@ Plug 'w0rp/ale'
 " puppet
 Plug 'rodjek/vim-puppet'
 
+" swift
+Plug 'keith/swift.vim'
+
 call plug#end()
