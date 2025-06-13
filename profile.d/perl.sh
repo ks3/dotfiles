@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if hash perl &>/dev/null; then
-    perlver="$(perl -e 'print $^V')"
+    perlver="$(perl -e '($v=$^V)=~s/\.[^\.]+$//;print $v')"
     [[ -d "$HOME/.perl/$perlver" ]] || mkdir -p "$HOME/.perl/$perlver"
 
     export PERL_MB_OPT="--install_base $HOME/.perl/$perlver"

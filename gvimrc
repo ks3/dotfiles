@@ -6,8 +6,18 @@ set guioptions-=r
 set guioptions-=R
 
 if has("gui_macvim")
-    set guifont=Source\ Code\ Pro:h12
-    set transparency=5
+
+    set guifont=IntelOneMono-Regular:h12
+    "set guifont=HackNFM-Regular:h12
+    "let g:NERDTreeGitStatusUseNerdFonts = 1
+
+    augroup AutoDark
+        autocmd!
+        autocmd OSAppearanceChanged * call SetBackground()
+    augroup END
+
+    set transparency=15
+
 else
     set guifont=Source\ Code\ Pro\ 10
 endif
@@ -19,3 +29,5 @@ set columns=160
 if filereadable(expand("~/.local/gvimrc"))
     source ~/.local/gvimrc
 endif
+
+

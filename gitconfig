@@ -6,6 +6,14 @@
     autosetupmerge  = always
     autosetuprebase = always
 [user]
-    name = Kevin Sandy
+	name = Kevin Sandy
+	email = kevin@digitallotus.com
 [status]
     short = true
+
+[includeIf "hasconfig:remote.*.url:https://bitbucket.research.cchmc.org/**"]
+        path = .gitconfig-cchmc
+[includeIf "hasconfig:remote.*.url:https://github.com/cchmc/**"]
+        path = .gitconfig-cchmc
+[includeIf "hasconfig:remote.*.url:https://github.com/rdcrn/**"]
+        path = .gitconfig-cchmc

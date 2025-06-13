@@ -6,6 +6,16 @@ if [[ -z $PS1 ]]; then
     return
 fi
 
+export COLOR_BLACK="\e[00;30m"
+export COLOR_RED="\e[00;31m"
+export COLOR_GREEN="\e[00;32m"
+export COLOR_YELLOW="\e[00;33m"
+export COLOR_BLUE="\e[00;34m"
+export COLOR_MAGENTA="\e[00;35m"
+export COLOR_CYAN="\e[00;36m"
+export COLOR_WHITE="\e[00;37m"
+export COLOR_RESET="\e[00m"
+
 [[ -f ~/.bash_aliases ]]   && source ~/.bash_aliases
 [[ -f ~/.bash_functions ]] && source ~/.bash_functions
 
@@ -17,66 +27,49 @@ if [[ -d ~/.profile.d ]]; then
         [[ -r $s ]] && source "$s"
     done
 fi
+unset s
 
 set -o vi
 
-function prompt_command() {
-    PROMPT_AWS=""
-    PROMPT_GIT=""
-    PROMPT_NEWLINE=""
+function _add_newlines() {
+    exec </dev/tty
 
-    if [[ -n $AWS_PROFILE ]]; then
-        PROMPT_AWS=" $AWS_PROFILE"
-    fi
+    # only do this if there is no input waiting on stdin
+    #read -t 0 _
+    #echo "Read returned: $?"
+    #if read -t 0 -u 0; then
+    #    return
+    #else
 
-    local branch="$(git branch --show-current 2>/dev/null)"
-    local index=""
-    local work=""
-    local status=""
-    if [[ -n $branch ]]; then
-        while IFS= read -r line; do
-            c=${line:0:1}
-            if [[ $c != ' ' && $index != *"$c"* ]]; then
-                index="${index}$c"
-            fi
-            c=${line:1:1}
-            if [[ $c != ' ' && $work != *"$c"* ]]; then
-                work="${work}$c"
-            fi
-        done < <(git status --short)
-        if [[ -n $index || -n $work ]]; then
-            status="${index}:${work}"
-        fi
-        PROMPT_GIT=" ${branch}${status:+(}${status}${status:+)}"
-    fi
+    # slurp any waiting input, this is less than ideal
+    _flush_stdin
 
     # get current cursor position
     local line
     local col
     IFS=';' read -rs -p$'\e[6n' -dR line col
     line="${line:2}"
-    if [[ $col -ne 1 ]]; then
-        # if prior command output didn't end in newline, add indicator newline
-        PROMPT_NEWLINE=$'$\n'
-    #elif [[ $line -ne 1 ]]; then
-    #    # add newline if we aren't at top of screen
-    #    PROMPT_NEWLINE=$'\n'
-    fi
 
-    # reset terminal settings
+    # if prior command output didn't end in newline, add indicator newline
+    [[ $col -ne 1 ]] && echo "$"
+
+    # add newline if we aren't at top of screen
+    [[ $line -ne 1 ]] && echo ""
+
+    #fi
+}
+_flush_stdin() {
+    read -r -n 100000 -t 0.01
+}
+_reset_terminal() {
     stty sane
 }
-PROMPT_COMMAND=prompt_command
-
-export COLOR_PROMPT="\[\e[00;34m\]"
-export COLOR_BLACK="\[\e[38;5;0m\]"
-export COLOR_BLUE="\[\e[38;5;26m\]"
-export COLOR_GREEN="\[\e[38;5;40m\]"
-export COLOR_PURPLE="\[\e[38;5;135m\]"
-export COLOR_ORANGE="\[\e[38;5;214m\]"
-export COLOR_YELLOW="\[\e[38;5;226m\]"
-export COLOR_WHITE="\[\e[38;5;255m\]"
-export COLOR_RESET="\[\e[00m\]"
+if [[ " ${PROMPT_COMMAND[*]} " != *" _add_newlines "* ]]; then
+    PROMPT_COMMAND+=('_add_newlines')
+fi
+#if [[ " ${PROMPT_COMMAND[*]} " != *" _reset_terminal "* ]]; then
+#    PROMPT_COMMAND+=('_reset_terminal')
+#fi
 
 export hostname="${HOSTNAME,,}"
 export BASH_SILENCE_DEPRECATION_WARNING=1
@@ -84,7 +77,13 @@ export EDITOR="vim"
 export LESS="RX"
 export QUOTING_STYLE="literal"
 
-export PS1="\${PROMPT_NEWLINE}${COLOR_PROMPT}[\u@${hostname%%.*}:\w${COLOR_WHITE}\${PROMPT_GIT}${COLOR_ORANGE}\${PROMPT_AWS}${COLOR_PROMPT}]\$ ${COLOR_RESET}"
+#export PS0="\$(stty -echo)"
+if [[ " ${PROMPT_COMMAND[*]} " != *" stty -echo "* ]]; then
+    PROMPT_COMMAND+=('stty -echo')
+fi
+export GIT_PROMPT_START="\[${COLOR_CYAN}\]┌─── \u@${hostname%%.*} \[${COLOR_BLUE}\]\w\[${COLOR_RESET}\]"
+export GIT_PROMPT_END="\[${COLOR_YELLOW}\]\${AWS_PROFILE:+ }\${AWS_PROFILE}\n\[${COLOR_CYAN}\]└─ \[${COLOR_BLUE}\]\$\[${COLOR_RESET}\] \[\$(_flush_stdin;stty echo)\]"
+export PS1="${GIT_PROMPT_START}${GIT_PROMPT_END}"
 
 umask 0022
 

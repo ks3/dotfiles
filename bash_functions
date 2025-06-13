@@ -1,13 +1,28 @@
+function mkcd() {
+    local d="$1"
+    if [[ -z $d || -e $d ]]; then
+        echo "Usage: mkcd <new-directory>" >&2
+        return 1
+    fi
+    mkdir "$d" && cd "$d"
+}
+
 function pathmunge() {
     local p="$1"
     local w="$2"
 
-    if [[ :$PATH: =~ :$p: ]]; then
+    # do nothing if given path doesn't exist
+    if [[ ! -d $p ]]; then
         return
     fi
 
-    if [[ ! -d $p ]]; then
-        return
+    # remove path if it already exists so that we can change it's priority
+    if [[ :$PATH: =~ :$p: ]]; then
+        local t=":$PATH:"
+        t="${t//$p:}"
+        t="${t#:}"
+        t="${t%:}"
+        PATH="$t"
     fi
 
     if [[ $w = after ]]; then

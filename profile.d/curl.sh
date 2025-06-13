@@ -1,10 +1,12 @@
-function curl_resolve() {
-    declare host
+#!/bin/bash
+
+curlResolve() {
+    declare host="localhost"
     declare port=80
     declare ip="127.0.0.1"
 
-    if [[ -n $HOST_OVERRIDE ]]; then
-        ip=$HOST_OVERRIDE
+    if [[ -n $CURL_IP ]]; then
+        ip="$CURL_IP"
     fi
 
     for arg in "$@"; do
@@ -20,5 +22,5 @@ function curl_resolve() {
         fi
     done
 
-    curl --resolve $host:$port:$ip "$@"
+    curl --resolve "$host:$port:$ip" "$@"
 }

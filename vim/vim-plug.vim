@@ -19,6 +19,8 @@ call plug#begin('~/.vim/vim-plug')
 " color schemes
 Plug 'arcticicestudio/nord-vim'
 Plug 'romainl/apprentice'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 
 " airline and themes
 Plug 'vim-airline/vim-airline'
@@ -33,5 +35,12 @@ Plug 'rodjek/vim-puppet'
 
 " swift
 Plug 'keith/swift.vim'
+
+Plug 'preservim/nerdtree' | 
+    \ Plug 'Xuyuanp/nerdtree-git-plugin'
+
+Plug 'ctrlpvim/ctrlp.vim'
+
+Plug 'hashivim/vim-terraform'
 
 call plug#end()

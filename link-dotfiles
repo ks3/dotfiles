@@ -1,10 +1,11 @@
 #!/bin/bash
 
-for item in $(find . -mindepth 1 -maxdepth 1 -print); do
+while read -r item; do
+
     item=${item#./}
 
     # files to skip
-    [[ $item == $(basename $0) ]] && continue
+    [[ $item == $(basename "$0") ]] && continue
     [[ $item == README.md ]] && continue
     [[ $item =~ ^\. ]] && continue
 
@@ -12,7 +13,8 @@ for item in $(find . -mindepth 1 -maxdepth 1 -print); do
     src="${src/$HOME\/}"
     dst="$HOME/.$item"
 
-    if [[ -e $dst ]]; then
+    if [[ -L $dst ]]; then
+
         STAT_FORMAT_FLAG="-c"
         if [[ $OSTYPE =~ ^darwin ]]; then
             STAT_FORMAT_FLAG="-f"
@@ -23,10 +25,15 @@ for item in $(find . -mindepth 1 -maxdepth 1 -print); do
             continue
         fi
 
-        mv -f "$dst" "$dst.bak"
-    fi
+        rm "$dst"
 
+    elif [[ -e $dst ]]; then
+
+        mv -f "$dst" "$dst.bak"
+
+    fi
 
     echo "$dst -> $src"
     ln -s "$src" "$dst"
-done
+
+done < <((find . -mindepth 1 -maxdepth 1 -print))
